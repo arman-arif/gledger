@@ -49,26 +49,38 @@ $(document).ready(function () {
             //     }
             // });
 
-            var form = $("#add_expense");
-            var inputs = form.find("input, select, button, textarea");
-            var serializedData = form.serialize();
-            // inputs.prop("disabled", true);
-
             // request = $.ajax({
             //     url: "/form.php",
             //     type: "post",
             //     data: serializedData
             // });
             // sweetAlert.fire("Ops!","All fields are required.", "warning");
+            alertify.confirm(
+                'Confirmation',
+                'Do you want to add the expanse?',
+                function(){ addExpense() },
+                function(){ alertify.error('Canceled')}
+            ).setting({
+                'labels': {ok: 'Yes', cancel: 'No'},
+                'movable': false
+            });//.set('labels', {ok: 'Yes', cancel: 'No'}).set('movable', false);
 
-
-            $.post('api?add-ledger', serializedData, function(response) {
-                console.log(response);
-                // sweetAlert.fire("Great!","All fields are required.", "warning");
-                // Log the response to the console
-                // console.log("Response: "+response);
-                // console.log(serializedData);
-            });
+            function addExpense() {
+                var form = $("#add_expense");
+                var inputs = form.find("input, select, button, textarea");
+                var serializedData = form.serialize();
+                // inputs.prop("disabled", true);
+                $.post('api?add-ledger', serializedData, function(response) {
+                    let result = jQuery.parseJSON(response);
+                    if (result.status === 'success') {
+                        sweetAlert.fire("Great!", result.message, "success");
+                    } else {
+                        sweetAlert.fire("Ops!", result.message, "error");
+                    }
+                    // console.log("Response: "+response);
+                    // console.log(serializedData);
+                });
+            }
 
         }
 
@@ -104,6 +116,15 @@ $(document).ready(function () {
         $(this).next().fadeOut();
         $(this).removeClass("error-input");
     });
+    expense_date.focus(function () {
+        $(this).next().fadeOut();
+        $(this).removeClass("error-input");
+    });
+    expense_date.change(function () {
+        $(this).next().fadeOut();
+        $(this).removeClass("error-input");
+    });
+
     expense_date.keydown(function () {
         expense_date.addClass("error-input");
         expense_date.next().text("Choose date from the popup calender");

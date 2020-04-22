@@ -13,6 +13,8 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="assets/vendor/jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/vendor/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="assets/vendor/alertifyjs/css/themes/bootstrap.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
