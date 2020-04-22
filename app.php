@@ -1,7 +1,7 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 
-require ROOT . 'conf/config.php';
+require CONF_DIR . 'config.php';
 
 $Route = new Router();
 

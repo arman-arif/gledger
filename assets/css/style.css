@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: url(../../resources/bg-ptr-vin.jpg) !important;
+    position: relative;
+}
+
+.bg-asphalt{background: #34495e !important;}
+.bg-midnightblue{background: #2c3e50 !important;}
+.bg-wisteria{background: #8e44ad !important;}
+.bg-pink{background: #efa8e4 !important;}
+.bg-orange-1{background: #ff5733 !important;}
+.bg-yellow{background: #f1c40f !important;}
+.bg-nephritis{background: #27ae60 !important;}
+.bg-emerald{background: #2ecc71 !important;}
+.bg-sky1{background: #00bcd4 !important;}
+.bg-sky2{background: #4cd3c2 !important;}
+.bg-sky3{background: #97e5ef !important;}
+.bg-sky4{background: #77d8d8 !important;}
+.bg-violet{background: #342ead !important;}
+
+.alert-box{
+    position: absolute;
+    height: calc(100vh - 20px);
+    width: 100%;
+}
+
+.alert{
+    position: fixed !important;
+    width: 350px;
+    z-index: 99;
+    margin-right: 10px;
+    padding-bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(0% + 100px);
+    font-size: 14px;
+    display: none;
+}
+
+.input-box{
+    position: relative;
+}
+.error-input{
+    border: 1px solid #af0100;
+    transition: 500ms;
+}
+
+.error-message{
+    position: absolute;
+    min-width: calc(100% - 30px);
+    max-width: max-content;
+    background: rgba(255,150,140,1);
+    color: #af0100;
+    z-index: 9;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 5px;
+    border: 0.5px solid #ca2728;
+    top: calc(100% + 5px);
+    /*left: 80%;*/
+    display: none;
+}
+.error-message::after{
+    position: absolute;
+    height: 0;
+    width: 0;
+    content: "";
+    border: 5px solid transparent;
+    border-bottom-color: #ca2728;
+    bottom: 100%;
+    left: calc(0% + 50px);
+}
+
+
+@media (min-width: 768px) {
+    .error-message{
+        /*left: 80%;*/
+        right: 80%;
+    }
+    .error-message::after{
+        border-bottom-color: #ca2728;
+        bottom: 100%;
+        left: calc(100% - 20px);
+    }
+}
+
+.show{display: block;}
