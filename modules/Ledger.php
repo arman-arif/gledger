@@ -1,14 +1,11 @@
 <?php
 namespace modules;
 
-use Exception;
-
-class Dashboard {
+class Ledger {
     private $database = null;
     protected $page_title = null;
     protected $module_script = null;
     protected $module_style = null;
-    private $errors = array();
 
     public function __construct() {
         $this->page_title = "Dashboard";
@@ -17,7 +14,7 @@ class Dashboard {
     }
 
     public function get_view(){
-        include PAGE_DIR . 'dashboard.php';
+        require PAGE_DIR . 'ledger.php';
     }
 
     public function get_title(){
@@ -27,22 +24,9 @@ class Dashboard {
     public function get_script(){
         return $this->module_script;
     }
-
     public function get_style(){
         return $this->module_style;
     }
-
-    public function set_error($error){
-        array_push($this->errors, $error);
-    }
-
-    public function get_errors(){
-       return $this->errors;
-    }
-
-
-
-
     public function define_script(){
         $script = '<script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>';
         $script .= '';

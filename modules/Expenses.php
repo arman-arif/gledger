@@ -3,7 +3,7 @@ namespace modules;
 
 use Exception;
 
-class Dashboard {
+class Expenses {
     private $database = null;
     protected $page_title = null;
     protected $module_script = null;
@@ -13,11 +13,15 @@ class Dashboard {
     public function __construct() {
         $this->page_title = "Dashboard";
         $this->module_script = $this->define_script();
-        $this->module_style = $this->define_style();
+        $this->module_style = $this->define_style();  
     }
 
     public function get_view(){
-        include PAGE_DIR . 'dashboard.php';
+        try{
+            include PAGE_DIR . 'expenses.php';
+        } catch (Exception $e){
+            $this->set_error($e->getMessage());
+        }
     }
 
     public function get_title(){
@@ -41,8 +45,6 @@ class Dashboard {
     }
 
 
-
-
     public function define_script(){
         $script = '<script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>';
         $script .= '';
@@ -53,5 +55,4 @@ class Dashboard {
         $stylesheets .= '';
         return $stylesheets;
     }
-
 }

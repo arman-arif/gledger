@@ -5,6 +5,11 @@ class Router
 {
     private $_uri = array();
     private $_module = array();
+    private $_errors = array();
+
+    public function __construct() {
+        $this->error_handler();
+    }
 
     public function add($uri, $path){
         $this->_uri[] = trim($uri, '/');
@@ -39,10 +44,21 @@ class Router
                         $module_script = !is_null($method_script) ? $method_script : ''; //module custom script
                         $module_header = !is_null($method_style) ? $method_style : ''; //module custom stylesheets
 
+                        
                         //get the page view and set page title
                         $page_title = $module->get_title(); //module page title
                         $this->set_header($page_title, $module_header); //document header
                         $module->get_view(); //module main page view
+
+                        //get module errors
+                        $method_errors = in_array('get_errors', $methods) ? $module->get_errors() : '';
+                        $module_errors = is_array($method_errors) ? $method_errors : ''; //module errors
+                        $module_errors = !empty(count($method_errors)) ? $method_errors : ''; //module errors
+                        $custom_errors = !empty(count($this->_errors)) ? $this->_errors : ''; //custom errors
+
+                        $this->show_errors($module_errors);
+                        $this->show_errors($custom_errors);
+
                         $this->set_footer($module_script); //document footer
                     } else {
                         call_user_func($this->_module[$key]); //calling the function if defined
@@ -72,12 +88,33 @@ class Router
 
     }
 
-    public function set_header($page_title, $custom_header){
+    private function set_header($page_title, $custom_header){
         require INCL_DIR . "header.php";
     }
 
-    public function set_footer($module_script){
+    private function set_footer($module_script){
         require INCL_DIR . "footer.php";
+    }
+
+    private function show_errors($errors){
+        
+        if($errors != '')
+            include INCL_DIR . 'alert.php';
+    }
+
+    private function error_handler(){
+        // function custom_error($errno, $errstr){
+        //     $this->_errors[] = array(
+        //         'error_no' => $errno,
+        //         'error_str' => $errstr
+        //     );
+        // }
+        set_error_handler(function ($errno, $errstr){
+            $this->_errors[] = array(
+                'error_no' => $errno,
+                'error_str' => $errstr
+            );
+        });
     }
 
 }

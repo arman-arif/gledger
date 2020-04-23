@@ -8,6 +8,8 @@ $Route = new Router();
 
 $Route->add('/', 'Dashboard');
 $Route->add('/dashboard', 'Dashboard');
+$Route->add('/ledger', 'Ledger');
+$Route->add('/expenses', 'Expenses');
 
 
 $Route->deploy();

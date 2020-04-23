@@ -2,14 +2,6 @@
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 //dashboard
 ?>
-<!--<div class="alert-box">-->
-<!--    <div class="alert alert-success alert-dismissible fade show"" role="alert">-->
-<!--    <h6 class="alert-heading">Well done!</h6>-->
-<!--    <p>Aww yeah, you successfully read this important alert message.</p>-->
-<!--    <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--        <span aria-hidden="true">&times;</span>-->
-<!--    </button>-->
-<!--</div>-->
 
 <div class="container h-100">
 

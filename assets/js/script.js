@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
         $(".alert").fadeOut();
-    },2500);
+    }, 10000);
 
     // var add_expense = gete('add_expense'); //$("#add_expense");
     var expense_amt = $("#expense_amt");
