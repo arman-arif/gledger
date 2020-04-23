@@ -11,7 +11,7 @@ class Expenses {
     private $errors = array();
 
     public function __construct() {
-        $this->page_title = "Dashboard";
+        $this->page_title = "Expenses";
         $this->module_script = $this->define_script();
         $this->module_style = $this->define_style();  
     }

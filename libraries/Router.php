@@ -103,12 +103,6 @@ class Router
     }
 
     private function error_handler(){
-        // function custom_error($errno, $errstr){
-        //     $this->_errors[] = array(
-        //         'error_no' => $errno,
-        //         'error_str' => $errstr
-        //     );
-        // }
         set_error_handler(function ($errno, $errstr){
             $this->_errors[] = array(
                 'error_no' => $errno,
