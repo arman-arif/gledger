@@ -75,7 +75,7 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                         </div>
                         <div class="col-sm-8 col-md-10 mx-auto row">
                             <div class="col-6">
-                                <a href="#">
+                                <a href="<?= BASE_URL ?>ledger">
                                     <div class="card text-center bg-asphalt text-white">
                                         <div class="card-body">
                                             <i class="fa fa-book fa-3x"></i>
@@ -87,7 +87,7 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="#">
+                                <a href="<?= BASE_URL ?>expenses">
                                     <div class="card text-center bg-asphalt text-white">
                                         <div class="card-body">
                                             <i class="fa fa-shopping-bag fa-3x"></i>

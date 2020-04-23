@@ -1,4 +1,6 @@
 <?php
+namespace modules;
+use libraries\Database;
 
 class User {
     private $db = null;

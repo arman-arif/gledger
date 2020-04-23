@@ -5,7 +5,7 @@
  * @email atarmanarif@gmail.com
  * @copyright 2019 pbs.armanarif.com
  */
-namespace helper;
+namespace libraries;
 
 class Session {
 	private static $_sessionStarted = false;

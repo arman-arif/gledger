@@ -1,4 +1,8 @@
 <?php
+namespace libraries;
+use \PDO;
+use \PDOException;
+use \mysqli;
 
 class Database {
     private $pdo = null;

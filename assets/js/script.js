@@ -38,6 +38,7 @@ $(document).ready(function () {
             // spend_by.next().addClass("show");
             spend_by.next().fadeIn();
         }
+        remErrMsgDelay();
 
         if(expense_amt.val() !== '' || expense_date.val() !== '' || spend_by.val() !== ''){
 
@@ -59,11 +60,11 @@ $(document).ready(function () {
                 'Confirmation',
                 'Do you want to add the expanse?',
                 function(){ addExpense() },
-                function(){ alertify.error('Canceled')}
+                function(){ alertify.error('Declined').delay(2) }
             ).setting({
                 'labels': {ok: 'Yes', cancel: 'No'},
                 'movable': false
-            });//.set('labels', {ok: 'Yes', cancel: 'No'}).set('movable', false);
+            }).autoCancel(5);//.set('labels', {ok: 'Yes', cancel: 'No'}).set('movable', false);
 
             function addExpense() {
                 var form = $("#add_expense");
@@ -71,11 +72,18 @@ $(document).ready(function () {
                 var serializedData = form.serialize();
                 // inputs.prop("disabled", true);
                 $.post('api?add-ledger', serializedData, function(response) {
-                    let result = jQuery.parseJSON(response);
-                    if (result.status === 'success') {
-                        sweetAlert.fire("Great!", result.message, "success");
+                    let result = (response !== '') ? jQuery.parseJSON(response) : '';
+                    if (typeof (result) == 'object') {
+                        if (result.status === 'success') {
+                            sweetAlert.fire("Great!", result.message, "success").then(function () {
+                                inputs.val('');
+                                $("#expense_note").focus();
+                            });
+                        } else {
+                            sweetAlert.fire("Ops!", result.message, "error");
+                        }
                     } else {
-                        sweetAlert.fire("Ops!", result.message, "error");
+                        sweetAlert.fire("Ops!", 'Something went wrong!', "error");
                     }
                     // console.log("Response: "+response);
                     // console.log(serializedData);
@@ -83,11 +91,6 @@ $(document).ready(function () {
             }
 
         }
-
-        setTimeout(function () {
-            // $(".error-message").removeClass("show");
-            $(".error-message").fadeOut();
-        },3000);
 
     });
 
@@ -101,6 +104,7 @@ $(document).ready(function () {
             expense_amt.next().text("Only numbers are allowed!");
             // expense_amt.next().addClass("show");
             expense_amt.next().fadeIn();
+            remErrMsgDelay();
             return false;
         }
         return true;
@@ -129,6 +133,7 @@ $(document).ready(function () {
         expense_date.addClass("error-input");
         expense_date.next().text("Choose date from the popup calender");
         expense_date.next().fadeIn();
+        remErrMsgDelay();
         return false;
     });
 
@@ -140,6 +145,12 @@ $(document).ready(function () {
     $(".error-message").click(function () {
         $(this).fadeOut();
     });
+
+    function remErrMsgDelay() {
+        setTimeout(function () {
+            $(".error-message").fadeOut();
+        },3000);
+    }
 
     function removeErrMsg() {
         $(".error-message").fadeOut();
