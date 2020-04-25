@@ -1,12 +1,13 @@
 <?php
 namespace modules;
 
+use libraries\FontEnd;
+
 class Ledger {
     private $database = null;
     protected $page_title = null;
     protected $module_script = null;
     protected $module_style = null;
-    private $errors = array();
 
     public function __construct() {
         $this->page_title = "Ledger";
@@ -34,22 +35,14 @@ class Ledger {
 
 
 
-    public function set_error($error){
-        array_push($this->errors, $error);
-    }
-
-    public function get_errors(){
-        return $this->errors;
-    }
-
     public function define_script(){
         $script = '';
-        $script .= '';
+        $script .= FontEnd::bootstrap_tables('js');
         return $script;
     }
     public function define_style(){
         $stylesheets = '';
-        $stylesheets .= '';
+        $stylesheets .= FontEnd::bootstrap('css');
         return $stylesheets;
     }
 

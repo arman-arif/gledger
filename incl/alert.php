@@ -5,7 +5,7 @@
         <?php if (is_array($errors)): ?>
         <?php foreach ($errors as $error): ?>
             <?php if (is_array($error)): ?>
-                <p><?php echo 'Error <b>['.$error['error_no'].']</b>: '.$error['error_str']; ?></p>
+                <p><?php echo "<b>$error[error_name]</b> <br> $error[error_str] <br> $error[error_file],  Line: $error[error_line]"; ?></p>
             <?php else: ?>
                 <p><?php echo $error; ?></p>
             <?php endif; ?>

@@ -1,27 +1,48 @@
 <?php
 namespace modules;
 
-use Exception;
+use PDOException;
+use libraries\Database;
+use libraries\FontEnd;
 
 class Expenses {
     private $database = null;
     protected $page_title = null;
     protected $module_script = null;
     protected $module_style = null;
-    private $errors = array();
+    private $db_pdo = null;
 
     public function __construct() {
+        $this->database = new Database();
         $this->page_title = "Expenses";
         $this->module_script = $this->define_script();
-        $this->module_style = $this->define_style();  
+        $this->module_style = $this->define_style();
+        $this->db_pdo = $this->database->getPdo();
+    }
+
+    public function add($post_data){
+        $data = $this->database->escape_array($post_data);
+        $date_yyyymm = date("Ym", time());
+        $data['expense_note'] = ($data['expense_note'] == '') ? "Grocery" : $data['expense_note'];
+
+        $query = 'INSERT INTO `ledger` (`sec_of_use`, `cost_amt`, `spend_by`, `date`, `yyyymm`) 
+                VALUES (:cost_field, :cost_amt, :spend_by, :date, :yyyymm)';
+        $stmt = $this->db_pdo->prepare($query);
+        $stmt->bindParam(':cost_field', $data['expense_note']);
+        $stmt->bindParam(':cost_amt', $data['expense_amt']);
+        $stmt->bindParam(':spend_by', $data['spend_by']);
+        $stmt->bindParam(':date', $data['expense_date']);
+        $stmt->bindParam(':yyyymm', $date_yyyymm);
+
+        if ($stmt->execute())
+            echo json_encode(['status' => 'success', 'message' => 'Expense added successfully']);
+        else
+            echo json_encode(['status' => 'error', 'message' => 'Expense could not be added']);
+
     }
 
     public function get_view(){
-        try{
-            include PAGE_DIR . 'expenses.php';
-        } catch (Exception $e){
-            $this->set_error($e->getMessage());
-        }
+        include PAGE_DIR . 'expenses.php';
     }
 
     public function get_title(){
@@ -36,22 +57,13 @@ class Expenses {
         return $this->module_style;
     }
 
-    public function set_error($error){
-        array_push($this->errors, $error);
-    }
-
-    public function get_errors(){
-       return $this->errors;
-    }
-
-
     public function define_script(){
-        $script = '<script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>';
+        $script = '';
         $script .= '';
         return $script;
     }
     public function define_style(){
-        $stylesheets = '<link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">';
+        $stylesheets = '';
         $stylesheets .= '';
         return $stylesheets;
     }

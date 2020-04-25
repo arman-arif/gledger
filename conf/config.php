@@ -1,7 +1,7 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 
-define('APP_NAME', "GLedger");
+define('APP_NAME', "gLedger");
 
 define('BASE_URL', "http://".$_SERVER['HTTP_HOST']."/gledger/");
 

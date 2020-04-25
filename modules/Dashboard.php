@@ -44,12 +44,12 @@ class Dashboard {
 
 
     public function define_script(){
-        $script = '<script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>';
+        $script = '';
         $script .= '';
         return $script;
     }
     public function define_style(){
-        $stylesheets = '<link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">';
+        $stylesheets = '';
         $stylesheets .= '';
         return $stylesheets;
     }

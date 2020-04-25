@@ -101,3 +101,12 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
     </div>
 
 </div>
+
+<div class="loading-modal bg-trans-cove hide">
+    <div class="loading modal-background">
+        <div class="loading-content">
+            <div class="loading-circle"></div>
+            <span class="loading-name">Working...</span>
+        </div>
+    </div>
+</div>

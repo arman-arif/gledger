@@ -29,23 +29,50 @@ class Database {
         return $this->pdo;
     }
 
-    public function getAll($table){
-        $stmt = $this->pdo->query("SELECT * FROM $table");
-
-        return $stmt->fetch();
+    public function getAll($table) {
+        try {
+            $stmt = $this->pdo->query("SELECT * FROM $table");
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetch();
+            } else {
+                return false;
+            }
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        }
     }
 
     public function escape($str){
         return $this->db->real_escape_string($str);
     }
 
+    public function escape_array($array){
+        foreach ($array as $key => $item) {
+            $array[$key] = $this->escape($item);
+        }
+        return $array;
+    }
+
     public function select($query){
         try {
-            return  $this->pdo->query($query);
+            $stmt = $this->pdo->query($query);
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetch();
+            } else {
+                return false;
+            }
         } catch (PDOException $e){
-            $e->getMessage();
+            echo $e->getMessage();
         }
     }
 
 
-}
+} //end of class
+
+//$result_set = $pdo->prepare("INSERT INTO `users` (`username`, `password`, `first_name`, `last_name`) VALUES (:username, :password, :first_name, :last_name)");
+//$result_set->execute(array(
+//    ':username' => '~user',
+//    ':password' => '~pass',
+//    ':first_name' => '~John',
+//    ':last_name' => '~Doe'
+//));

@@ -51,12 +51,8 @@ class Router
                         $module->get_view(); //module main page view
 
                         //get module errors
-                        $method_errors = in_array('get_errors', $methods) ? $module->get_errors() : '';
-                        $module_errors = is_array($method_errors) ? $method_errors : ''; //module errors
-                        $module_errors = !empty(count($method_errors)) ? $method_errors : ''; //module errors
                         $custom_errors = !empty(count($this->_errors)) ? $this->_errors : ''; //custom errors
 
-                        $this->show_errors($module_errors);
                         $this->show_errors($custom_errors);
 
                         $this->set_footer($module_script); //document footer
@@ -66,10 +62,10 @@ class Router
 
                 }
             }
+        } else if ($uri_path == 'api' || $uri[0] == 'api' && !isset($uri[1])) {
+            require INCL_DIR . 'api.php'; //only for api calling
         } else {
-            if ($uri_path == 'api'){
-                require INCL_DIR . 'api.php'; //only for api calling
-            }
+            require INCL_DIR . 'error-page.php';
         }
 
 //        echo '<pre>';
@@ -97,16 +93,33 @@ class Router
     }
 
     private function show_errors($errors){
-        
         if($errors != '')
             include INCL_DIR . 'alert.php';
     }
 
     private function error_handler(){
-        set_error_handler(function ($errno, $errstr){
+        set_error_handler(function ($errno, $errstr, $errfile, $errline){
+            $errname = null;
+            switch ($errno){
+                case E_USER_ERROR:
+                    $errname = 'ERROR';
+                    break;
+                case E_USER_NOTICE:
+                    $errname = "NOTICE";
+                    break;
+                case E_USER_WARNING:
+                    $errname = "WARNING";
+                    break;
+                default:
+                    $errname = "Error: [$errno]";
+                    break;
+            }
             $this->_errors[] = array(
-                'error_no' => $errno,
-                'error_str' => $errstr
+                'error_no'  => $errno,
+                'error_name' => $errname,
+                'error_str' => $errstr,
+                'error_file' => $errfile,
+                'error_line' => $errline
             );
         });
     }
