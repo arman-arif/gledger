@@ -16,7 +16,7 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                     <div class="col-sm-8 mx-auto">
                         <div class="card bg-asphalt">
                             <div class="card-body">
-                                <form action="" method="post" class="form-signin">
+                                <form action="login" method="post" class="form-signin">
                                     <label class="sr-only" for="usr">Username</label>
                                     <input class="form-control bg-midnightblue border-dark" type="text" placeholder="Username" name="usrname" id="usr" autocomplete="off" autofocus>
 

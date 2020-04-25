@@ -1,7 +1,7 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 
-error_reporting(0);
+// error_reporting(0);
 
 use libraries\Router;
 use libraries\Session;

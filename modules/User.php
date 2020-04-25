@@ -4,6 +4,7 @@ use libraries\Database;
 
 class User {
     private $db = null;
+    private $table = 'members';
 
     public function __construct() {
         $this->db = new Database();
@@ -16,7 +17,7 @@ class User {
     }
 
     public function getUser($id){
-        $sql = "SELECT * FROM members WHERE id = $id";
+        $sql = "SELECT * FROM $this->table WHERE id = $id";
         $res = $this->db->select($sql);
 
     }

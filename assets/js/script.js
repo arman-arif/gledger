@@ -46,14 +46,15 @@ $(document).ready(function () {
             var inputs = form.find("input, select, button, textarea");
 
             function addExpense() {
-                $('.loading-modal').removeClass('hide');
+                $('#loader-text').html("WORKING...");
+                $('#loader-modal').removeClass('hide');
                 $.ajax({
                     url: 'api?add-ledger',
                     type: "POST",
                     data: form_data,
                     dataType: 'json',
                     success: function(result){
-                        $('.loading-modal').addClass('hide');
+                        $('#loader-modal').addClass('hide');
                         if (result.status === 'success'){
                             sweetAlert.fire("Great!", result.message, "success").then(function () {
                                 inputs.val('');
@@ -120,12 +121,14 @@ $(document).ready(function () {
         $(this).removeClass("error-input");
     });
 
-    expense_date.keydown(function () {
-        expense_date.addClass("error-input");
-        expense_date.next().text("Choose date from the popup calender");
-        expense_date.next().fadeIn();
-        remErrMsgDelay();
-        return false;
+    expense_date.keypress(function (e) {
+        if(e.keyCode !== 9 || e.keyCode !== 13){
+            expense_date.addClass("error-input");
+            expense_date.next().text("Choose date from the popup calender");
+            expense_date.next().fadeIn();
+            remErrMsgDelay();
+            return false;
+        }
     });
 
     spend_by.change(function () {

@@ -33,7 +33,7 @@ class Database {
         try {
             $stmt = $this->pdo->query("SELECT * FROM $table");
             if ($stmt->rowCount() > 0) {
-                return $stmt->fetch();
+                return $stmt;
             } else {
                 return false;
             }

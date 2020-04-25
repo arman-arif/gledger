@@ -164,7 +164,7 @@ body{
 
 .loading-content {
     background-color: #ecf0f1;
-    border-radius: 10px;
+    border-radius: 50%;
     width: 190px;
     height: 190px;
     display: flex;
@@ -178,22 +178,28 @@ body{
     width: 150px;
     height: 150px;
     position: absolute;
-    border: 1px solid #2c3e50;
+    border: 1px solid #2ecc71;
     border-radius: 50%;
     border-bottom: 0;
-    border-left: 0;
+    border-top: 0;
+    /* border-left: 0; */
     background-color: transparent;
     animation: loading 1.5s linear infinite;
     -webkit-animation: loading 1.5s linear infinite;
 }
 
 .loading-name {
-    color: #2c3e50;
+    color: #27ae60;
     user-select: none;
     -webkit-user-select: none;
     cursor: progress;
     position: relative;
     font-family: Arial, serif;
+    
+    animation-name: blinking;
+    animation-duration: 1s;
+    animation-delay: 1.5s;
+    animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes loading {
@@ -220,5 +226,11 @@ body{
         -webkit-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+
+@keyframes blinking {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }
 /* Loading Modal end*/
