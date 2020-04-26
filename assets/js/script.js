@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     setTimeout(function () {
         $(".alert").fadeOut();
+        $(".alert-box").remove();
     }, 5000);
 
     var expense_amt = $("#expense_amt");
@@ -154,6 +155,33 @@ $(document).ready(function () {
 
     $("#show").click(function () {
         $('.loading-modal').removeClass('hide');
+    });
+
+    var usrname = $('#usr');
+    var usrpass = $('#pwd');
+
+    $("#login-form").submit(function (e) {
+        if (usrname.val() === "") {
+            e.preventDefault();
+            usrname.addClass("input-error");
+            usrname.popover({
+                container: '.card',
+                content: "Username is required"
+            })
+        }
+
+        if (usrpass.val() === "") {
+            e.preventDefault();
+            usrpass.addClass("input-error");
+        }
+    });
+
+    usrname.keypress(function () {
+        usrname.removeClass("input-error");
+    });
+
+    usrpass.keypress(function () {
+        usrpass.removeClass("input-error");
     });
 });
 

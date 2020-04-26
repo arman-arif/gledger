@@ -30,9 +30,13 @@ class Router
         $uri_str_query = $_SERVER['QUERY_STRING'];
 
         if (in_array($uri_path, $this->_uri)){
+
+            Tools::check_login($uri);
+
             foreach ($this->_uri as $key => $item) {
                 if ($item == $uri_path) {
                     if (is_string($this->_module[$key])){
+
                         //module object or instance call/create
                         $module_name = 'modules\\' . $this->_module[$key];
                         $module = new $module_name;
@@ -78,7 +82,6 @@ class Router
 //        echo $_uriQuery;
 //        echo "<br>";
 //        echo $uri_path;
-//
 
 
 

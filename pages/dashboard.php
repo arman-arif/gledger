@@ -15,7 +15,7 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                 </div>
 
                 <div class="bg-yellow px-4 pb-3">
-                    <legend class="border-bottom border-dark">Add Expense</legend>
+                    <h4 class="border-bottom border-dark pt-2">Add Expense</h4>
                     <form method="post" id='add_expense'>
                         <div class="form-group row">
                             <label for="expense_note" class="col-form-label col-md-5 font-weight-bold">Expense Reason:</label>
@@ -92,6 +92,10 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="">
+                    <a href="<?= BASE_URL ?>logout" class="btn btn-outline-danger btn-sm text-center mx-auto">Logout</a>
                 </div>
 
                 <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>

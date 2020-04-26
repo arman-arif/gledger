@@ -38,24 +38,20 @@ class Tools
         return json_decode(json_encode($array), false);
     }
 
-    public static function check_login () {
-        $accessable = ['login','signup'];
-        global $uri;
-        if (isset($uri[0])){
-            if (in_array($uri[0], $accessable)){
-                if(Session::is_set("user_name")){
-                    self::redirect(BASE_URL . "dashboard");
-                }
-            }
-            else if(!in_array($uri[0], $accessable)){
-                if(!Session::is_set("user_name"))
-                    self::redirect(BASE_URL . "login");
-            }
+    public static function check_login ($uri) {
+        if ($uri[0] == 'login' || $uri[0] == 'signup') {
+            if (Session::is_set("user_name"))
+                self::redirect(BASE_URL . "dashboard");
+        } else {
+            if(!Session::is_set("user_name"))
+                self::redirect(BASE_URL . "login");
         }
+
+
     }
 
     public static function check_user_active() {
-        if (Session::is_set("username")){
+        if (Session::is_set("user_name")){
             if (Session::is_set("last_active")) {
                 $last_active = Session::get("last_active");
                 if (time() - $last_active > 15 * 60) {
@@ -67,6 +63,20 @@ class Tools
                 }
             }
         }
+    }
+
+    public static function goto_last_page() {
+        if (Session::is_set("logged_out"))
+            Tools::redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public static function set_errors($errors){
+        if($errors != '')
+            include INCL_DIR . 'alert.php';
+    }
+
+    public static function get_typed_value($name){
+        return isset($_POST[$name]) ? $_POST[$name] : '';
     }
 
 

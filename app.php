@@ -5,8 +5,11 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 
 use libraries\Router;
 use libraries\Session;
+use libraries\Tools;
 
 require CONF_DIR . 'config.php';
+
+Session::start();
 
 $Route = new Router();
 
@@ -21,6 +24,5 @@ $Route->add('/logout', function (){
     Session::destroy();
 
 });
-
 
 $Route->deploy();

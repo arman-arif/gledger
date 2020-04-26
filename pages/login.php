@@ -1,6 +1,7 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 //login view page
+use libraries\Tools;
 ?>
 
 <div class="container h-100">
@@ -16,12 +17,12 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                     <div class="col-sm-8 mx-auto">
                         <div class="card bg-asphalt">
                             <div class="card-body">
-                                <form action="login" method="post" class="form-signin">
+                                <form action="<?= BASE_URL ?>login" method="post" class="form-signin" id="login-form">
                                     <label class="sr-only" for="usr">Username</label>
-                                    <input class="form-control bg-midnightblue border-dark" type="text" placeholder="Username" name="usrname" id="usr" autocomplete="off" autofocus>
+                                    <input class="form-control bg-midnightblue border-dark" type="text" placeholder="Username" name="usrname" id="usr" autocomplete="off" autofocus value="<?= Tools::get_typed_value('usrname') ?>">
 
                                     <label class="sr-only" for="pwd">Password</label>
-                                    <input class="form-control bg-midnightblue border-dark" type="password" placeholder="Password" name="passwd" id="pwd" autocomplete="off">
+                                    <input class="form-control bg-midnightblue border-dark" type="password" placeholder="Password" name="passwd" id="pwd" autocomplete="off" value="<?= Tools::get_typed_value('passwd') ?>">
 
                                     <button class="form-control btn btn-outline-danger mt-3" type="submit" id="btn-login">
                                         <span class="mr-3">Login</span>

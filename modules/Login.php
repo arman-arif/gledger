@@ -13,6 +13,7 @@ class Login {
     protected $module_script = null;
     protected $module_style = null;
     private $db_pdo = null;
+    private $message = false;
 
     public function __construct() {
         $this->database = new Database();
@@ -24,47 +25,29 @@ class Login {
         if (isset($_POST['usrname'])) {
             $usr = Tools::validate_data($_POST['usrname']);
             $pwd = Tools::validate_data($_POST['passwd']);
-            $this->login($usr, $pwd);
+            $user = $this->user_login($usr, $pwd);
+            $this->message = $user;
         }
     }
 
-    public function login($username, $password){
+    public function user_login($username, $password){
 		
 		$username = $this->database->escape($username);
 		
 		$sql = "SELECT * FROM  {$this->table} WHERE username = '{$username}'";
 		
-		$result = $this->database->select($sql);
-        $row = $result->fetch();
-        
-        print_r($row);
-
-        exit;
-		;
-		
-		function setLoginSession($row) {
-			Session::set("user_id", $row->id);
-            Session::set("user_name", $row->username);
-            Session::set("full_name", $row->fullname);
-			Session::set("verify", $row->status);
-			Session::set("last_active", time());
-		}
-		
-		function gotoLastPage() {
-			if (Session::is_set("logged_out"))
-				Tools::redirect($_SERVER['HTTP_REFERER']);
-				// exit('<script>history.back()</script>');
-		}
+		$result = $this->database->query($sql);
 		
 		if ($result){
+            $row = $result->fetch();
 			if ($result->rowCount() > 0){
-				if (password_verify($password, $row->user_password)) {
-					setLoginSession($row);
-					gotoLastPage();
+				if (password_verify($password, $row->passwd)) {
+                    $this->set_login_session($row);
+                    Tools::goto_last_page();
 					Tools::redirect(BASE_URL . "dashboard");
-				} elseif (md5($password) == $row->user_password) {
-					setLoginSession($row);
-					gotoLastPage();
+				} elseif (md5($password) == $row->passwd) {
+                    $this->set_login_session($row);
+                    Tools::goto_last_page();
 					Tools::redirect(BASE_URL . "dashboard");
 				} else {
 					return "Wrong username or password combination";
@@ -78,11 +61,20 @@ class Login {
 		
 	}
 
-
-
+    private function set_login_session($row) {
+        Session::set("user_id", $row->id);
+        Session::set("user_name", $row->username);
+        Session::set("full_name", $row->fullname);
+        Session::set("verify", $row->status);
+        Session::set("role", $row->role);
+        Session::set("last_active", time());
+    }
 
     public function get_view(){
         include PAGE_DIR . 'login.php';
+        if ($this->message){
+            Tools::set_errors($this->message);
+        }
     }
 
     public function get_title(){

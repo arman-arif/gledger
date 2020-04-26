@@ -57,11 +57,21 @@ class Database {
         try {
             $stmt = $this->pdo->query($query);
             if ($stmt->rowCount() > 0) {
-                return $stmt->fetch();
+                return $stmt;
             } else {
                 return false;
             }
         } catch (PDOException $e){
+            echo $e->getMessage();
+        }
+    }
+
+    public function query($query){
+        try {
+            $stmt = $this->pdo->query($query);
+            if ($stmt)
+                return $stmt;
+        }catch (PDOException $e){
             echo $e->getMessage();
         }
     }
