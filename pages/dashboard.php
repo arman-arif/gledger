@@ -54,10 +54,12 @@ use modules\Users;
                             <div class="input-box col-md-7">
                                 <select name="spend_by" id="spend_by" class="form-control">
                                     <option value="">-- Select One --</option>
-                                <?php $all_users = new Users();
-                                foreach($all_users as $user): ?>
-                                    <option value="<?= $user["username"] ?>"><?php echo $user['fullname'] ?></option>
-                                <?php endforeach; ?>
+                                <?php
+                                $all_users = $this->obj_users->getUsers();
+//                                print_r($users->fetch());
+                                while($user = $all_users->fetch()): ?>
+                                    <option value="<?= $user->username ?>"><?php echo $user->fullname ?></option>
+                                <?php endwhile; ?>
                                 </select>
                                 <div class="error-message"></div>
                             </div>
