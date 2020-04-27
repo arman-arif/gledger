@@ -2,7 +2,7 @@
 namespace modules;
 use libraries\Database;
 
-class User {
+class Users {
     private $db = null;
     private $table = 'members';
 
@@ -10,15 +10,13 @@ class User {
         $this->db = new Database();
     }
 
-    public function userLogin ($usr, $pwd) {
-        $usr = $this->db->escape($usr);
-        $pwd = $this->db->escape($pwd);
-        $enc_pw = md5($pwd);
-    }
-
     public function getUser($id){
         $sql = "SELECT * FROM $this->table WHERE id = $id";
-        $res = $this->db->select($sql);
-
+        return $this->db->select($sql);
     }
+
+    public function getUsers(){
+        return $this->db->getAll($this->table);
+    }
+    
 }

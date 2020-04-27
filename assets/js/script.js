@@ -166,22 +166,40 @@ $(document).ready(function () {
             usrname.addClass("input-error");
             usrname.popover({
                 container: '.card',
-                content: "Username is required"
-            })
+                content: "Username is required",
+                trigger: 'focus',
+                placement: 'top'
+            });
         }
 
         if (usrpass.val() === "") {
             e.preventDefault();
             usrpass.addClass("input-error");
+            usrpass.popover({
+                container: '.card',
+                content: "Password is required",
+                trigger: 'focus',
+                placement: 'top'
+            });
         }
     });
 
-    usrname.keypress(function () {
-        usrname.removeClass("input-error");
+    usrname.keyup(function () {
+        if(usrname.val() === '') {
+            usrname.addClass("input-error");
+        } else {
+            usrname.popover.destroy();
+            usrname.removeClass("input-error");
+        }
     });
 
-    usrpass.keypress(function () {
-        usrpass.removeClass("input-error");
+    usrpass.keyup(function () {
+        if (usrpass.val() === '') {
+            usrpass.addClass("input-error");
+        } else {
+            usrpass.removeClass("input-error");
+            usrpass.popover.destroy();
+        }
     });
 });
 

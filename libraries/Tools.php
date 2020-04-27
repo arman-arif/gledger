@@ -54,7 +54,7 @@ class Tools
         if (Session::is_set("user_name")){
             if (Session::is_set("last_active")) {
                 $last_active = Session::get("last_active");
-                if (time() - $last_active > 15 * 60) {
+                if (time() - $last_active > 30 * 60) {
                     Session::destroy();
                     Session::set("logged_out", true);
                     self::redirect(BASE_URL . "login");

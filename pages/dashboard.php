@@ -1,6 +1,9 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 //dashboard
+use libraries\Session;
+use modules\Users;
+
 ?>
 
 <div class="container h-100">
@@ -9,9 +12,17 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
         <div class="col-md-8 col-lg-6 mx-auto h-100">
             <div class="bg-dark min-vh-100">
 
-                <div class="text-center bg-success p-1 pt-2 text-white">
-                    <h6>Welcome,</h6>
-                    <h4>Arman</h4>
+                <div class="bg-success p-1 pt-2 px-3 text-white clearfix">
+                    <div class="float-left">
+                        <h6>Welcome,</h6>
+                        <h4><?= Session::get('full_name') ?></h4>
+                    </div>
+                    <div class="float-right">
+                        <a href="<?= BASE_URL ?>logout" class="btn btn-outline-warning btn-sm text-center mx-auto">
+                            <i class="fa fa-sign-out"></i>
+                            <span class="d-none d-md-inline-block">Logout</span>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="bg-yellow px-4 pb-3">
@@ -43,8 +54,10 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                             <div class="input-box col-md-7">
                                 <select name="spend_by" id="spend_by" class="form-control">
                                     <option value="">-- Select One --</option>
-                                    <option value="arman">Arman Arif</option>
-                                    <option value="sumon">Dawdujjaman Sumon</option>
+                                <?php $all_users = new Users();
+                                foreach($all_users as $user): ?>
+                                    <option value="<?= $user["username"] ?>"><?php echo $user['fullname'] ?></option>
+                                <?php endforeach; ?>
                                 </select>
                                 <div class="error-message"></div>
                             </div>
@@ -92,10 +105,6 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="">
-                    <a href="<?= BASE_URL ?>logout" class="btn btn-outline-danger btn-sm text-center mx-auto">Logout</a>
                 </div>
 
                 <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>

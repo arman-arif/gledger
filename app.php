@@ -10,6 +10,7 @@ use libraries\Tools;
 require CONF_DIR . 'config.php';
 
 Session::start();
+Tools::check_user_active();
 
 $Route = new Router();
 
@@ -22,7 +23,7 @@ $Route->add('/login', 'Login');
 
 $Route->add('/logout', function (){
     Session::destroy();
-
+    Tools::redirect(BASE_URL . 'login');
 });
 
 $Route->deploy();
