@@ -3,6 +3,14 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\FontEnd;
 ?>
 
+            <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 <div class="loading-modal bg-trans-cove hide" id="loader-modal">
     <div class="loading modal-background">
         <div class="loading-content">

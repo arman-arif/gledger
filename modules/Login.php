@@ -66,7 +66,7 @@ class Login {
         Session::set("user_name", $row->username);
         Session::set("full_name", $row->fullname);
         Session::set("verify", $row->status);
-        Session::set("role", $row->role);
+        Session::set("user_role", $row->role);
         Session::set("last_active", time());
     }
 

@@ -1,6 +1,7 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\FontEnd;
+use libraries\Session;
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,3 +23,28 @@ echo FontEnd::custom_style();
 ?>
 </head>
 <body>
+<div class="container h-100">
+
+    <div class="row h-100">
+        <div class="col-md-8 col-lg-6 mx-auto h-100">
+            <div class="bg-dark min-vh-100">
+
+            <?php if (Session::is_set('user_name')) : ?>
+                  <div class="bg-success p-1 pt-2 px-3 text-white clearfix">
+                        <div class='float-left pr-2'>
+                              <a class="btn my-2 text-light" href="#" onclick='window.history.back()'>
+                                    <i class="fa fa-angle-left"></i>
+                              </a>
+                        </div>
+                        <div class="float-left ml-3">
+                              <h6 class="text-light">Welcome,</h6>
+                              <h4><?= Session::get('full_name') ?></h4>
+                        </div>
+                        <div class="float-right">
+                        <a href="<?= BASE_URL ?>logout" class="btn btn-outline-warning btn-sm text-center mx-auto">
+                              <i class="fa fa-sign-out"></i>
+                              <span class="d-none d-md-inline-block">Logout</span>
+                        </a>
+                        </div>
+                  </div>
+            <?php endif; ?>

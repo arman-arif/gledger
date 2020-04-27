@@ -6,27 +6,10 @@ use modules\Users;
 
 ?>
 
-<div class="container h-100">
 
-    <div class="row h-100">
-        <div class="col-md-8 col-lg-6 mx-auto h-100">
-            <div class="bg-dark min-vh-100">
 
-                <div class="bg-success p-1 pt-2 px-3 text-white clearfix">
-                    <div class="float-left">
-                        <h6>Welcome,</h6>
-                        <h4><?= Session::get('full_name') ?></h4>
-                    </div>
-                    <div class="float-right">
-                        <a href="<?= BASE_URL ?>logout" class="btn btn-outline-warning btn-sm text-center mx-auto">
-                            <i class="fa fa-sign-out"></i>
-                            <span class="d-none d-md-inline-block">Logout</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-yellow px-4 pb-3">
-                    <h4 class="border-bottom border-dark pt-2">Add Expense</h4>
+                <div class="bg-asphalt px-4 pb-3 text-white">
+                    <h4 class="border-bottom border-white pt-2">Add Expense</h4>
                     <form method="post" id='add_expense'>
                         <div class="form-group row">
                             <label for="expense_note" class="col-form-label col-md-5 font-weight-bold">Expense Reason:</label>
@@ -52,15 +35,19 @@ use modules\Users;
                         <div class="form-group row">
                             <label for="spend_by" class="col-form-label col-md-5 font-weight-bold">Spend By:</label>
                             <div class="input-box col-md-7">
+                                <?php if(Session::is_set('user_name') && (Session::get('user_role') == "admin")): ?>
                                 <select name="spend_by" id="spend_by" class="form-control">
                                     <option value="">-- Select One --</option>
-                                <?php
-                                $all_users = $this->obj_users->getUsers();
-//                                print_r($users->fetch());
-                                while($user = $all_users->fetch()): ?>
+                                    <?php
+                                    $all_users = $this->obj_users->getUsers();
+                                    while($user = $all_users->fetch()): ?>
                                     <option value="<?= $user->username ?>"><?php echo $user->fullname ?></option>
-                                <?php endwhile; ?>
+                                    <?php endwhile; ?>
                                 </select>
+                                <?php else: ?>
+                                    <input type="hidden" name="spend_by" class="form-control" value="<?= Session::get('user_name'); ?>" readonly>
+                                    <input type="text" id="spend_by" class="form-control" value="<?= Session::get('full_name'); ?>" disabled>
+                                <?php endif; ?>
                                 <div class="error-message"></div>
                             </div>
                         </div>
@@ -109,10 +96,3 @@ use modules\Users;
                     </div>
                 </div>
 
-                <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>
-            </div>
-        </div>
-
-    </div>
-
-</div>

@@ -144,12 +144,11 @@ $(document).ready(function () {
     function remErrMsgDelay() {
         setTimeout(function () {
             $(".error-message").fadeOut();
-        },3000);
+        }, 5000);
     }
 
     function removeErrMsg() {
         $(".error-message").fadeOut();
-        // $(".error-message").removeClass("show");
         $(".error-input").removeClass("error-input");
     }
 
@@ -188,7 +187,6 @@ $(document).ready(function () {
         if(usrname.val() === '') {
             usrname.addClass("input-error");
         } else {
-            usrname.popover.destroy();
             usrname.removeClass("input-error");
         }
     });
@@ -198,7 +196,6 @@ $(document).ready(function () {
             usrpass.addClass("input-error");
         } else {
             usrpass.removeClass("input-error");
-            usrpass.popover.destroy();
         }
     });
 });

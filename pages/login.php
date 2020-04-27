@@ -4,11 +4,6 @@ defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\Tools;
 ?>
 
-<div class="container h-100">
-
-    <div class="row h-100">
-        <div class="col-md-8 col-lg-6 mx-auto h-100">
-            <div class="bg-dark min-vh-100">
                 <section class="bg-success h-50">
                     <h3 class="display-4 text-center text-white py-3">gLedger</h3>
                 </section>
@@ -19,7 +14,7 @@ use libraries\Tools;
                             <div class="card-body">
                                 <form action="<?= BASE_URL ?>login" method="post" class="form-signin" id="login-form">
                                     <label class="sr-only" for="usr">Username</label>
-                                    <input class="form-control bg-midnightblue border-dark" type="text" placeholder="Username" name="usrname" id="usr" autocomplete="off" autofocus value="<?= Tools::get_typed_value('usrname') ?>">
+                                    <input class="form-control bg-midnightblue border-dark" type="text" placeholder="Username" name="usrname" id="usr" autocomplete="off" value="<?= Tools::get_typed_value('usrname') ?>">
 
                                     <label class="sr-only" for="pwd">Password</label>
                                     <input class="form-control bg-midnightblue border-dark" type="password" placeholder="Password" name="passwd" id="pwd" autocomplete="off" value="<?= Tools::get_typed_value('passwd') ?>">
@@ -34,10 +29,3 @@ use libraries\Tools;
                     </div>
                 </section>
 
-                <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>
-            </div>
-        </div>
-
-    </div>
-
-</div>
