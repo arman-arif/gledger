@@ -1,11 +1,11 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 
-// error_reporting(0);
-
 use libraries\Router;
 use libraries\Session;
 use libraries\Tools;
+
+$uri = null;
 
 require CONF_DIR . 'config.php';
 

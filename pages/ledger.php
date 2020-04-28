@@ -1,13 +1,36 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 //ledger view page
+use libraries\Tools;
+$ledger = $this->get_ledger();
+//print_r($ledger);
+$sl = 1;
+$expense_amt = 0;
 ?>
-
-<div class="container h-100">
-
-    <div class="row h-100">
-        <div class="col-md-8 col-lg-6 mx-auto h-100">
-            <div class="bg-dark min-vh-100">
+<section class="bg-white p-3">
+    <h4 class="text-center">Ledger</h4>
+    <table class="table table-sm ledger-table">
+        <tr>
+            <th>S/N</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th>Amount</th>
+        </tr>
+        <?php while($expense = $ledger->fetch()): ?>
+        <tr>
+            <td><?= $sl++ ?></td>
+            <td><?= Tools::format_date($expense->date); ?></td>
+            <td><?= $expense->sec_of_use ?></td>
+            <td><?= $expense->cost_amt ?></td>
+        </tr>
+        <?php $expense_amt += $expense->cost_amt;
+        endwhile; ?>
+        <tr class="font-weight-bold">
+            <td class="text-right" colspan="3">Total:</td>
+            <td><?= $expense_amt ?></td>
+        </tr>
+    </table>
+</section>
                 
 
 

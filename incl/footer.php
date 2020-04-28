@@ -1,6 +1,8 @@
 <?php 
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\FontEnd;
+use libraries\Tools;
+
 ?>
 
             <footer class="text-center text-muted bg-dark py-3">&copy; 2020 - All right reserved.</footer>
@@ -21,6 +23,12 @@ use libraries\FontEnd;
 </div>
 
 <?php
+if (isset($message)){
+    if ($message){
+        Tools::set_errors($message);
+    }
+}
+
 echo FontEnd::jquery();
 echo FontEnd::popperjs();
 echo FontEnd::bootstrap('js');

@@ -13,7 +13,7 @@ class Login {
     protected $module_script = null;
     protected $module_style = null;
     private $db_pdo = null;
-    private $message = false;
+    public $message = false;
 
     public function __construct() {
         $this->database = new Database();
@@ -72,9 +72,6 @@ class Login {
 
     public function get_view(){
         include PAGE_DIR . 'login.php';
-        if ($this->message){
-            Tools::set_errors($this->message);
-        }
     }
 
     public function get_title(){
@@ -91,7 +88,6 @@ class Login {
 
     public function define_script(){
         $script = '';
-//        $script .= FontEnd::materialjs_script();
         $script .= FontEnd::feather_icons();
         $script .=  "<script>
           feather.replace()

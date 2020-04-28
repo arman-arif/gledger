@@ -26,6 +26,16 @@ class Tools
         return $array;
     }
 
+    public static function format_date($date){
+        try {
+            $new_date = new \DateTime($date);
+            //date('Y-m-d', strtotime('+1 week'));
+            return $new_date->format("d/m/Y");
+        } catch (\Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public static function text_shorten($text, $limit) {
         $text = $text . " ";
         $text = substr($text, 0, $limit);

@@ -8,8 +8,8 @@ use modules\Users;
 
 
 
-                <div class="bg-asphalt px-4 pb-3 text-white">
-                    <h4 class="border-bottom border-white pt-2">Add Expense</h4>
+                <div class="bg-orange3 px-4 pb-3">
+                    <h4 class="border-bottom border-dark pt-2">Add Expense</h4>
                     <form method="post" id='add_expense'>
                         <div class="form-group row">
                             <label for="expense_note" class="col-form-label col-md-5 font-weight-bold">Expense Reason:</label>
@@ -62,7 +62,7 @@ use modules\Users;
                     </form>
                 </div>
 
-                <div class="bg-primary py-2">
+                <div class="bg-blue2 py-2">
                     <div class="row mx-2 mb-3">
                         <div class="col-12">
                             <h4 class="text-white border-bottom">Dashboard</h4>

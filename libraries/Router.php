@@ -28,6 +28,7 @@ class Router
         $uri_path = trim($uri_path, '/');
         $uri = explode('/', $uri_path);
         $uri_str_query = $_SERVER['QUERY_STRING'];
+        $GLOBALS['uri'] = $uri;
 
         if (in_array($uri_path, $this->_uri)){
 
@@ -59,7 +60,12 @@ class Router
 
                         $this->show_errors($custom_errors);
 
-                        $this->set_footer($module_script); //document footer
+                        $message = false;
+                        if (isset($module->message)){
+                            if ($module->message)
+                                $message = $module->message;
+                        }
+                        $this->set_footer($module_script, $message); //document footer
                     } else {
                         call_user_func($this->_module[$key]); //calling the function if defined
                     }
@@ -91,7 +97,7 @@ class Router
         require INCL_DIR . "header.php";
     }
 
-    private function set_footer($module_script){
+    private function set_footer($module_script, $message){
         require INCL_DIR . "footer.php";
     }
 

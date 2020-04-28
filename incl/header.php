@@ -2,6 +2,8 @@
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\FontEnd;
 use libraries\Session;
+
+global $uri;
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,9 +34,16 @@ echo FontEnd::custom_style();
             <?php if (Session::is_set('user_name')) : ?>
                   <div class="bg-success p-1 pt-2 px-3 text-white clearfix">
                         <div class='float-left pr-2'>
-                              <a class="btn my-2 text-light" href="#" onclick='window.history.back()'>
+                            <?php if($uri[0] == ''): ?>
+                                <a class="btn my-2 text-light" href="<?= BASE_URL ?>">
+                                    <i class="fa fa-home"></i>
+                                </a>
+                            <?php else: ?>
+                                <a class="btn my-2 text-light" href="#" onclick='window.history.back()'>
                                     <i class="fa fa-angle-left"></i>
-                              </a>
+                                </a>
+                            <?php endif; ?>
+
                         </div>
                         <div class="float-left ml-3">
                               <h6 class="text-light">Welcome,</h6>

@@ -11,7 +11,9 @@ body{
 .bg-midnightblue{background: #2c3e50 !important;}
 .bg-wisteria{background: #8e44ad !important;}
 .bg-pink{background: #efa8e4 !important;}
-.bg-orange-1{background: #ff5733 !important;}
+.bg-orange1{background: #ff5733 !important;}
+.bg-orange2{background: #f39c12 !important;}
+.bg-orange3{background: #f1c40f !important;}
 .bg-yellow{background: #f1c40f !important;}
 .bg-nephritis{background: #27ae60 !important;}
 .bg-emerald{background: #2ecc71 !important;}
@@ -20,6 +22,8 @@ body{
 .bg-sky3{background: #97e5ef !important;}
 .bg-sky4{background: #77d8d8 !important;}
 .bg-violet{background: #342ead !important;}
+.bg-blue1{background: #3498db !important;}
+.bg-blue2{background: #2980b9 !important;}
 
 .alert-box{
     position: fixed;
@@ -241,3 +245,22 @@ body{
     100% { opacity: 1; }
 }
 /* Loading Modal end*/
+
+/*Ledger Table*/
+.ledger-table tr th {
+    font-weight: bold;
+    background: #ededed;
+}
+
+.ledger-table tr th:first-child, .ledger-table tr th:last-child{
+    text-align: center;
+}
+
+.ledger-table tr td:last-child{
+    padding-right: 20px;
+    text-align: right;
+}
+
+.ledger-table tr td:first-child{
+    text-align: center;
+}
