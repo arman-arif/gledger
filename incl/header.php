@@ -17,9 +17,6 @@ global $uri;
 echo FontEnd::reset_css();
 echo FontEnd::bootstrap('css');
 echo FontEnd::fontawesome();
-echo FontEnd::jquery_ui('css');
-echo FontEnd::alertify('css');
-echo FontEnd::alertify('theme');
 echo isset($custom_header)?$custom_header:'';
 echo FontEnd::custom_style();
 ?>

@@ -1,6 +1,8 @@
 <?php
 namespace modules;
 
+use libraries\FontEnd;
+
 class Dashboard {
     private $database = null;
     protected $page_title = null;
@@ -44,13 +46,15 @@ class Dashboard {
 
 
     public function define_script(){
-        $script = '';
-        $script .= '';
+        $script = FontEnd::jquery_ui('js');
+        $script .= FontEnd::sweetalert2();
+        $script .= FontEnd::alertify('js');
         return $script;
     }
     public function define_style(){
-        $stylesheets = '';
-        $stylesheets .= '';
+        $stylesheets = FontEnd::jquery_ui('css');
+        $stylesheets .= FontEnd::alertify('css');
+        $stylesheets .= FontEnd::alertify('theme');
         return $stylesheets;
     }
 

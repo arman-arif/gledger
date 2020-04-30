@@ -1,6 +1,7 @@
 <?php
 namespace modules;
 
+use libraries\Session;
 use PDOException;
 use libraries\Database;
 use libraries\FontEnd;
@@ -11,6 +12,7 @@ class Expenses {
     protected $module_script = null;
     protected $module_style = null;
     private $db_pdo = null;
+    private $table = 'ledger';
 
     public function __construct() {
         $this->database = new Database();
@@ -41,6 +43,12 @@ class Expenses {
 
     }
 
+    public function get_expenses(){
+        $user = Session::get('user_name');
+        $query = "SELECT * FROM $this->table WHERE spend_by = '$user'";
+        return $this->database->select($query);
+    }
+
     public function get_view(){
         include PAGE_DIR . 'expenses.php';
     }
@@ -59,12 +67,13 @@ class Expenses {
 
     public function define_script(){
         $script = '';
-        $script .= '';
+        $script .= FontEnd::bootstrap_tables('js');
+        $script .= FontEnd::bootstrap_table_export();
         return $script;
     }
     public function define_style(){
         $stylesheets = '';
-        $stylesheets .= '';
+        $stylesheets .= FontEnd::bootstrap_tables('css');
         return $stylesheets;
     }
 }

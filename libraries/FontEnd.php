@@ -23,6 +23,7 @@ class FontEnd {
     private static $backbone_js          = 'assets/vendor/backbone-min.js'; //javascript
     private static $underscore_js        = 'assets/vendor/underscore-min.js'; //javascript
     private static $bstrap_tables_script = 'assets/vendor/bootstrap-table/bootstrap-table.min.js'; //javascript
+    private static $bstrap_tables_export = 'assets/vendor/bootstrap-table/extensions/export/bootstrap-table-export.min.js'; //javascript
     private static $feather_icons        = 'assets/vendor/feather.min.js'; //javascript
     private static $alertify_script      = 'assets/vendor/alertifyjs/alertify.js'; //javascript
     private static $sweetalert2_js       = 'assets/vendor/sweetalert2.9.js'; //javascript
@@ -91,6 +92,10 @@ class FontEnd {
         elseif ($type == 'js')
             return self::local_component(self::$bstrap_tables_script, 'js');
         return '';
+    }
+
+    public static function bootstrap_table_export(){
+        return self::local_component(self::$bstrap_tables_export, 'js');
     }
 
     public static function feather_icons(){

@@ -247,6 +247,10 @@ body{
 /* Loading Modal end*/
 
 /*Ledger Table*/
+.ledger-table {
+    cursor: default;
+}
+
 .ledger-table tr th {
     font-weight: bold;
     background: #ededed;
