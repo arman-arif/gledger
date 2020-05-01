@@ -44,8 +44,8 @@ class Tools
         return $text;
     }
 
-    public static function array_to_object($array) {
-        return json_decode(json_encode($array), false);
+    public static function array_to_object(&$array) {
+        $array = json_decode(json_encode($array), false);
     }
 
     public static function check_login ($uri) {

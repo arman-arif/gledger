@@ -14,7 +14,7 @@ class FontEnd {
     private static $alertify_theme       = 'assets/vendor/alertifyjs/css/themes/default.css';
 
     //local components, javascript location
-    private static $custom_script     = 'assets/js/script.js'; //javascript
+    private static $custom_script        = 'assets/js/script.js'; //javascript
     private static $bootstrap_script     = 'assets/js/bootstrap.min.js'; //javascript
     private static $jquery_script        = 'assets/js/jquery-3.4.1.min.js'; //javascript
     private static $jquery_ui_script     = 'assets/vendor/jquery-ui-1.12.1/jquery-ui.min.js'; //javascript
@@ -27,6 +27,9 @@ class FontEnd {
     private static $feather_icons        = 'assets/vendor/feather.min.js'; //javascript
     private static $alertify_script      = 'assets/vendor/alertifyjs/alertify.js'; //javascript
     private static $sweetalert2_js       = 'assets/vendor/sweetalert2.9.js'; //javascript
+    private static $table_export         = 'assets/vendor/tableExport.jquery.plugin/tableExport.min.js'; //javascript
+    private static $table_export_jspdf   = 'assets/vendor/tableExport.jquery.plugin/libs/jsPDF/jspdf.min.js'; //javascript
+    private static $jspdf_autotable      = 'assets/vendor/tableExport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js'; //javascript
 
     //external cdn links
     private static $materialjs_script    = 'https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js';
@@ -92,6 +95,13 @@ class FontEnd {
         elseif ($type == 'js')
             return self::local_component(self::$bstrap_tables_script, 'js');
         return '';
+    }
+
+    public static function table_export_jquery(){
+        $loc = self::local_component(self::$table_export, 'js');
+        $loc .= self::local_component(self::$table_export_jspdf, 'js');
+        $loc .= self::local_component(self::$jspdf_autotable, 'js');
+        return $loc;
     }
 
     public static function bootstrap_table_export(){
