@@ -1,11 +1,15 @@
 <?php
 defined('ROOT') or die(header("HTTP/1.1 403 Forbidden"));
 use libraries\Tools;
+use libraries\Session;
 use modules\Expenses;
-//error_reporting(0);
-//$link = new libraries\Database();
-//$db = $link->getDb();
-//$pdo = $link->getPdo();
+
+// Check if user is logged in before allowing API access
+if (!Session::is_set("user_name")) {
+    http_response_code(403);
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized: Please login first']);
+    exit;
+}
 
 if (isset($_GET['add-ledger'])){
     if (isset($_POST['expense_amt'])){
@@ -14,6 +18,3 @@ if (isset($_GET['add-ledger'])){
         $expense->add($post_data);
     }
 }
-//print_r($_POST);
-//print_r($_GET);
-//print_r($_SERVER['HTTP_HOST']);

@@ -76,8 +76,9 @@ class Tools
     }
 
     public static function goto_last_page() {
-        if (Session::is_set("logged_out"))
+        if (Session::is_set("logged_out") && isset($_SERVER['HTTP_REFERER'])) {
             Tools::redirect($_SERVER['HTTP_REFERER']);
+        }
     }
 
     public static function set_errors($errors){
