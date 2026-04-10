@@ -31,35 +31,26 @@ class Login {
     }
 
     public function user_login($username, $password){
-		
-		$username = $this->database->escape($username);
-		
-		$sql = "SELECT * FROM  {$this->table} WHERE username = '{$username}'";
-		
-		$result = $this->database->query($sql);
-		
-		if ($result){
+        // Use prepared statement to prevent SQL injection
+        $sql = "SELECT * FROM {$this->table} WHERE username = :username";
+        $result = $this->database->select($sql, [':username' => $username]);
+        
+        if ($result && $result->rowCount() > 0){
             $row = $result->fetch();
-			if ($result->rowCount() > 0){
-				if (password_verify($password, $row->passwd)) {
-                    $this->set_login_session($row);
-                    Tools::goto_last_page();
-					Tools::redirect(BASE_URL . "dashboard");
-				} elseif (md5($password) == $row->passwd) {
-                    $this->set_login_session($row);
-                    Tools::goto_last_page();
-					Tools::redirect(BASE_URL . "dashboard");
-				} else {
-					return "Wrong username or password combination";
-				}
-			} else {
-				return "Invalid username or password";
-			}
-		}
-		
-		return false;
-		
-	}
+            // Only support secure password_verify (remove MD5 fallback)
+            if (password_verify($password, $row->passwd)) {
+                $this->set_login_session($row);
+                Tools::goto_last_page();
+                Tools::redirect(BASE_URL . "dashboard");
+            } else {
+                return "Wrong username or password";
+            }
+        } else {
+            return "Invalid username or password";
+        }
+        
+        return false;
+    }
 
     private function set_login_session($row) {
         Session::set("user_id", $row->id);

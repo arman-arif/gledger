@@ -45,8 +45,9 @@ class Expenses {
 
     public function get_expenses(){
         $user = Session::get('user_name');
-        $query = "SELECT * FROM $this->table WHERE spend_by = '$user'";
-        return $this->database->select($query);
+        // Use prepared statement to prevent SQL injection
+        $query = "SELECT * FROM $this->table WHERE spend_by = :spend_by";
+        return $this->database->select($query, [':spend_by' => $user]);
     }
 
     public function get_view(){

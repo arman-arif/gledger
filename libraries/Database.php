@@ -17,7 +17,8 @@ class Database {
             $this->db = new mysqli(HST, USR, PWD, DBN);
         }
         catch(PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            error_log("Database connection failed: " . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -29,23 +30,63 @@ class Database {
         return $this->pdo;
     }
 
-    public function getAll($table) {
+    /**
+     * Execute a SELECT query with prepared statements
+     * @param string $sql SQL query with placeholders
+     * @param array $params Parameters to bind
+     * @return \PDOStatement|false Result set or false if no rows
+     */
+    public function select($sql, $params = []) {
         try {
-            $stmt = $this->pdo->query("SELECT * FROM $table");
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
             if ($stmt->rowCount() > 0) {
                 return $stmt;
             } else {
                 return false;
             }
         } catch (PDOException $e){
-            echo $e->getMessage();
+            error_log("SELECT query failed: " . $e->getMessage());
+            return false;
         }
     }
 
+    /**
+     * Execute an INSERT, UPDATE, or DELETE query with prepared statements
+     * @param string $sql SQL query with placeholders
+     * @param array $params Parameters to bind
+     * @return \PDOStatement|false Statement on success, false on failure
+     */
+    public function query($sql, $params = []) {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+            return $stmt;
+        } catch (PDOException $e){
+            error_log("Query failed: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Fetch all rows from a table (legacy method, use select() instead)
+     */
+    public function getAll($table) {
+        return $this->select("SELECT * FROM $table");
+    }
+
+    /**
+     * Escape a string using mysqli (legacy, avoid using - prefer prepared statements)
+     * @deprecated Use prepared statements instead
+     */
     public function escape($str){
         return $this->db->real_escape_string($str);
     }
 
+    /**
+     * Escape an array of strings (legacy, avoid using - prefer prepared statements)
+     * @deprecated Use prepared statements instead
+     */
     public function escape_array($array){
         foreach ($array as $key => $item) {
             $array[$key] = $this->escape($item);
@@ -53,36 +94,4 @@ class Database {
         return $array;
     }
 
-    public function select($query){
-        try {
-            $stmt = $this->pdo->query($query);
-            if ($stmt->rowCount() > 0) {
-                return $stmt;
-            } else {
-                return false;
-            }
-        } catch (PDOException $e){
-            echo $e->getMessage();
-        }
-    }
-
-    public function query($query){
-        try {
-            $stmt = $this->pdo->query($query);
-            if ($stmt)
-                return $stmt;
-        }catch (PDOException $e){
-            echo $e->getMessage();
-        }
-    }
-
-
 } //end of class
-
-//$result_set = $pdo->prepare("INSERT INTO `users` (`username`, `password`, `first_name`, `last_name`) VALUES (:username, :password, :first_name, :last_name)");
-//$result_set->execute(array(
-//    ':username' => '~user',
-//    ':password' => '~pass',
-//    ':first_name' => '~John',
-//    ':last_name' => '~Doe'
-//));
